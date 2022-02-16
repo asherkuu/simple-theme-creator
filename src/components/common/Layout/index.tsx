@@ -15,7 +15,7 @@ interface LayoutPrpos {
 
 const Layout: FC<LayoutPrpos> = ({ children, ...themeProps }) => {
   return (
-    <div>
+    <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Simple VS Code Theme Creator" />
@@ -29,8 +29,10 @@ const Layout: FC<LayoutPrpos> = ({ children, ...themeProps }) => {
         <title>Theme Creator</title>
       </Head>
       <NavBar {...themeProps} />
-      <Box p="100px 20px">{children}</Box>
-    </div>
+      <Box dp="flex" fx="1">
+        {children}
+      </Box>
+    </>
   );
 };
 

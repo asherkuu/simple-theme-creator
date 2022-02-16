@@ -2,7 +2,7 @@
   "name": "simple-theme-creator",
   "private": true,
   "scripts": {
-    "dev": "PORT=3000 next dev",
+    "dev": "next dev",
     "sh": "sh script/generate-sitemap.sh",
     "build": "next build",
     "start": "next start",

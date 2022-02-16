@@ -3,6 +3,7 @@ export const STYLES = {
   fx: "flex",
   fd: "flexDirection",
   ai: "alignItems",
+  fw: "flexWrap",
   jc: "justifyContent",
   m: "margin",
   mt: "marginTop",

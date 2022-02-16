@@ -50,6 +50,7 @@ export type STYLES_TYPE = {
   fd?: string;
   ai?: string;
   jc?: string;
+  fw?: string;
   bd?: string;
   bdw?: string;
   bdc?: string;

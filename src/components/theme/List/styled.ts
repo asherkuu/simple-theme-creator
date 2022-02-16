@@ -5,7 +5,6 @@ export const Wrap = styled.div`
   box-sizing: border-box;
 
   div.grid {
-    padding: 5px 0px 30px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-row-gap: 25px;

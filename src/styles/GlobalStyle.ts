@@ -15,12 +15,21 @@ const GlobalStyle = (theme: Theme) => css`
   body {
     padding: 0;
     margin: 0;
+    display: flex;
+    font-size: 16px;
+    width: 100%;
+    min-height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     background-color: var(--color_bg_main);
     color: var(--color_font_main);
 
     transition: background-color 100ms ease-in, color 100ms ease-in;
+  }
+  body > #__next {
+    display: flex;
+    flex: 1;
+    padding: 100px 20px 20px;
   }
 
   a {
@@ -29,6 +38,8 @@ const GlobalStyle = (theme: Theme) => css`
   }
 
   * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
 
