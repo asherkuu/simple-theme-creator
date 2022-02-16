@@ -2,7 +2,7 @@ export const STYLES = {
   dp: "display",
   fx: "flex",
   fd: "flexDirection",
-  ai: "alignItem",
+  ai: "alignItems",
   jc: "justifyContent",
   m: "margin",
   mt: "marginTop",
@@ -30,4 +30,8 @@ export const STYLES = {
   mnh: "minHeight",
   ps: "position",
   g: "gap",
+  bg: "backgroundColor",
+  zi: "zIndex",
 };
+
+export const EXCEPT_STYLES = ["zi"];

@@ -4,12 +4,16 @@ import Head from "next/head";
 
 import NavBar from "components/common/NavBar";
 import { Box } from "components/common/Core/Box";
+import { Theme } from "styles/Theme";
 
 interface LayoutPrpos {
   children: ReactNode;
+  themeMode: "dark" | "light";
+  theme: Theme;
+  onToggle: () => void;
 }
 
-const Layout: FC<LayoutPrpos> = ({ children }) => {
+const Layout: FC<LayoutPrpos> = ({ children, ...themeProps }) => {
   return (
     <div>
       <Head>
@@ -24,8 +28,8 @@ const Layout: FC<LayoutPrpos> = ({ children }) => {
         {/* <meta property="og:image" content="/card.png" /> */}
         <title>Theme Creator</title>
       </Head>
-      <NavBar />
-      <Box p="70px 20px">{children}</Box>
+      <NavBar {...themeProps} />
+      <Box p="100px 20px">{children}</Box>
     </div>
   );
 };

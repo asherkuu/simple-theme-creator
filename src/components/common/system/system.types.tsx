@@ -76,4 +76,6 @@ export type STYLES_TYPE = {
   mnh?: string;
   ps?: string;
   g?: string;
+  bg?: string;
+  zi?: string;
 };

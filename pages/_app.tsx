@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={THEME[theme]}>
         {/* <Font /> */}
         <Global styles={GlobalStyle(THEME[theme])} />
-        <Layout>
+        <Layout themeMode={theme} theme={THEME[theme]} onToggle={onToggle}>
           <Component {...pageProps} />
         </Layout>
       </ThemeProvider>

@@ -11,6 +11,8 @@ export const Wrap: any = styled.article`
   border-radius: 10px;
   margin: 0 auto;
 
+  cursor: pointer;
+
   &.feed {
     animation: fade-in ${(props: any) => props.sec}ms ease-in;
     box-shadow: 0px 5px 15px rgb(0 0 0 / 20%);
