@@ -68,4 +68,12 @@ export type STYLES_TYPE = {
   pr?: string;
   pb?: string;
   pl?: string;
+  w?: string;
+  h?: string;
+  mxw?: string;
+  mxh?: string;
+  mnw?: string;
+  mnh?: string;
+  ps?: string;
+  g?: string;
 };

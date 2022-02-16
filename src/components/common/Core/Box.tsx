@@ -21,7 +21,11 @@ export const Box = forwardRef<BoxProps, "div">((props, ref) => {
   const initStyle = useCallback((rest) => {
     const styled = {};
 
-    Object.keys(rest).forEach((item) => (styled[STYLES[item]] = rest[item]));
+    Object.keys(rest).forEach(
+      (item) =>
+        (styled[STYLES[item]] =
+          rest[item] + (!isNaN(Number(rest[item])) ? "px" : ""))
+    );
 
     return styled;
   }, []);

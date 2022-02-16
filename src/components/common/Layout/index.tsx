@@ -25,7 +25,7 @@ const Layout: FC<LayoutPrpos> = ({ children }) => {
         <title>Theme Creator</title>
       </Head>
       <NavBar />
-      <Box>{children}</Box>
+      <Box p="70px 20px">{children}</Box>
     </div>
   );
 };

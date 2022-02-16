@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <ThemeProvider theme={THEME[theme]}>
-        <Font />
+        {/* <Font /> */}
         <Global styles={GlobalStyle(THEME[theme])} />
         <Layout>
           <Component {...pageProps} />
