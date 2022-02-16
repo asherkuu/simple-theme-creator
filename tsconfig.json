@@ -72,7 +72,8 @@
     "incremental": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["**/**/*", "**/*", "*", "./server.ts"],
   "exclude": ["node_modules"]
