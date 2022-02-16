@@ -8,9 +8,6 @@ const PostPage = () => {
   return (
     <div>
       <div>
-        <h1>Post Page!</h1>
-      </div>
-      <div>
         <span>pageName 상태: {pageName}</span>
       </div>
       <div>
