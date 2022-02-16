@@ -97,7 +97,7 @@ export const Wrap: any = styled.article`
       section.main {
         flex: 0.9;
         float: right;
-        background-color: #cccccccc;
+        background-color: ${(props: any) => props.itemColor.background};
         border-bottom-right-radius: 10px;
 
         header {
