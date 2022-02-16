@@ -2,7 +2,9 @@ import { RecoilRoot } from "recoil";
 import type { AppProps } from "next/app";
 import { Global, ThemeProvider } from "@emotion/react";
 
-import { Container } from "components/app/styled";
+import Layout from "components/common/Layout";
+import Font from "components/common/font";
+
 import useTheme from "hooks/useTheme";
 import GlobalStyle from "styles/GlobalStyle";
 import { default as THEME } from "styles/Theme";
@@ -11,14 +13,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [theme, onToggle] = useTheme();
 
   return (
-    <ThemeProvider theme={THEME[theme]}>
-      <RecoilRoot>
+    <RecoilRoot>
+      <ThemeProvider theme={THEME[theme]}>
+        <Font />
         <Global styles={GlobalStyle(THEME[theme])} />
-        <Container>
+        <Layout>
           <Component {...pageProps} />
-        </Container>
-      </RecoilRoot>
-    </ThemeProvider>
+        </Layout>
+      </ThemeProvider>
+    </RecoilRoot>
   );
 }
 
