@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Wrap } from "./styled";
 import {
   VscFiles,
@@ -10,10 +10,16 @@ import {
 } from "react-icons/vsc";
 import { IoGitMergeOutline } from "react-icons/io5";
 import TextSvg from "./TextSvg";
+import { ITheme } from "interface/theme";
 
-const Index = ({ sec = 0 }) => {
+interface ItemProps {
+  item: ITheme;
+  sec: number;
+}
+
+const Index: FC<ItemProps> = ({ item, sec = 300 }) => {
   return (
-    <Wrap className="feed" sec={sec}>
+    <Wrap className="feed" sec={sec} itemColor={item.colors}>
       <header>
         <ul>
           <li></li>
@@ -21,9 +27,8 @@ const Index = ({ sec = 0 }) => {
           <li></li>
         </ul>
 
-        <h3>yosi</h3>
+        <h3>{item.title}</h3>
       </header>
-
       <article>
         <section className="left-bar">
           <div>
