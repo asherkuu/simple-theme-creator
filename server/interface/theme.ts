@@ -12,8 +12,8 @@ export default interface ITheme extends Document {
   };
   social?: {
     github?: {
-      id: string;
-      show: boolean;
+      id?: string;
+      show?: boolean;
     };
   };
   colors: any;

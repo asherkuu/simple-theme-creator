@@ -17,8 +17,8 @@ const ThemeSchema: Schema<ITheme> = new Schema(
     },
     social: {
       github: {
-        id: { type: String, required: true, maxlength: 128 },
-        show: { type: Boolean, required: true, default: false },
+        id: { type: String, maxlength: 128, default: null },
+        show: { type: Boolean, default: false },
       },
     },
     colors: { type: Object },
