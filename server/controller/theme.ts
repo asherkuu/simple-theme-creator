@@ -64,7 +64,7 @@ export const getThemeList = async (
 };
 
 /***
- * POST New Theme
+ * Post New Theme
  * @METHOD `POST`
  * @PATH `/api/v1/theme`
  */
@@ -80,6 +80,35 @@ export const postTheme = async (
     try {
       const newTheme = (await new Themes(req.body).save()) as ITheme[];
       return res.status(200).json(newTheme);
+    } catch (error) {
+      return res.status(500).json({
+        msg: error.message,
+        error,
+      });
+    }
+  }
+};
+
+/***
+ * Delete New Theme
+ * @METHOD `DELETE`
+ * @PATH `/api/v1/theme`
+ */
+export const deleteTheme = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ _id: string } | CatchType>
+) => {
+  const errors: Result<ValidationError> = await validationResult(req);
+  if (!errors.isEmpty()) {
+    const firstError: string = await errors.array().map((err) => err.msg)[0];
+    return res.status(422).json({ msg: firstError });
+  } else {
+    try {
+      const theme = (await Themes.findOneAndRemove({
+        _id: req.body.id,
+      })) as { id: string };
+
+      return res.json({ _id: theme.id });
     } catch (error) {
       return res.status(500).json({
         msg: error.message,
