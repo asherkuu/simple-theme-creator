@@ -21,7 +21,7 @@ const ThemeSchema: Schema<ITheme> = new Schema(
         show: { type: Boolean, required: true, default: false },
       },
     },
-    color: { type: Object },
+    colors: { type: Object },
   },
   {
     timestamps: true,
