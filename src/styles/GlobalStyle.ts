@@ -2,6 +2,14 @@ import { css } from "@emotion/react";
 import { Theme } from "styles/Theme";
 
 const GlobalStyle = (theme: Theme) => css`
+  @font-face {
+    font-family: "FiraCode";
+    font-style: normal;
+    src: local("FiraCode"), url(/fonts/FiraCode.woff2) format("woff2"),
+      local("FiraCode"), url(/fonts/FiraCode.woff) format("woff");
+    font-display: swap;
+  }
+
   :root {
     --color_bg_main: ${theme.color_bg_main};
 
@@ -11,6 +19,7 @@ const GlobalStyle = (theme: Theme) => css`
     --color_btn_main: ${theme.color_btn_main};
     --color_btn_hover: ${theme.color_btn_hover};
   }
+
   html,
   body {
     padding: 0;
@@ -19,8 +28,7 @@ const GlobalStyle = (theme: Theme) => css`
     font-size: 16px;
     width: 100%;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: -apple-system, FiraCode, sans-serif;
     background-color: var(--color_bg_main);
     color: var(--color_font_main);
 
