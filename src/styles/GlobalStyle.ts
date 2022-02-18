@@ -25,6 +25,12 @@ const GlobalStyle = (theme: Theme) => css`
     color: var(--color_font_main);
 
     transition: background-color 100ms ease-in, color 100ms ease-in;
+
+    /* text drag disabled */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
   body > #__next {
     display: flex;
