@@ -4,17 +4,13 @@ import connectDB from "../../../../server/middleware/mongodb";
 import ITheme from "../../../../server/interface/theme";
 
 import { CatchType } from "typings";
-import {
-  postThemeList,
-  deleteThemeById,
-} from "../../../../server/controller/theme";
+import { getThemeById } from "../../../../server/controller/theme";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<ITheme[] | { id: string } | CatchType>
+  res: NextApiResponse<ITheme | { _id: string } | CatchType>
 ) => {
-  if (req.method === "POST") return await postThemeList(req, res);
-  if (req.method === "DELETE") return await deleteThemeById(req, res);
+  return await getThemeById(req, res);
 };
 
 export default connectDB(handler);

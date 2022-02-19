@@ -6,6 +6,7 @@ import ITheme from "../../server/interface/theme";
 import Themes from "../../server/model/theme";
 
 import { CatchType } from "typings";
+import { IThemeRequestBody } from "../typings/theme";
 
 /**
   $eq     =    Matches values that are equal to a specified value.
@@ -35,33 +36,48 @@ export const postThemeList = async (
   } else {
     try {
       const {
-        lastId,
-        limit = 20,
-        page = 1,
+        lastId = null,
+        limit = 30,
         tags = [],
-        filter = "",
-      } = req.body as {
-        lastId: string;
-        limit: string;
-        page: string;
-        tags: string[];
-        filter: string;
+        type = "all",
+        sort = "new",
+        popular = null,
+      } = req.body as IThemeRequestBody;
+
+      const filteredBy = () => {
+        const filter = {
+          _id: { $lt: new mongo.ObjectId(lastId) },
+          type: type === "all" ? null : type,
+          $or: [],
+        };
+
+        tags.length > 0 && (filter.$or = [{ tags: { $in: tags } }]);
+
+        // delete not use data
+        Object.keys(filter).forEach((item) => {
+          !filter[item] && delete filter[item];
+        });
+        filter.$or.length === 0 && delete filter.$or;
+
+        return filter;
       };
 
-      // &lt : Matches values that are less than a specified value
-      const condition =
-        Number(page) !== 1
-          ? {
-              _id: { $lt: new mongo.ObjectId(lastId) },
-              $or: [{ filter }, { tags: { $in: tags } }],
-            }
-          : {};
+      const sortBy = () => {
+        if (sort === "popular" && ["view", "favor", "fork"].includes(popular)) {
+          return { [`count.${popular}`]: -1 };
+        } else {
+          return { createdAt: -1 };
+        }
+      };
 
-      await Themes.find(condition)
-        .limit(Number(limit) || 20)
-        .sort({ createdAt: -1 })
+      await Themes.find(filteredBy())
+        .limit(Number(limit))
+        .sort(sortBy())
         .exec(async (err: Object, theme: ITheme[]) => {
-          res.status(200).json(theme);
+          if (err) {
+            return res.status(400).json({ msg: JSON.stringify(err) });
+          }
+          return res.status(200).json(theme);
         });
     } catch (error) {
       res.status(500).json({
@@ -99,13 +115,13 @@ export const postThemeCreate = async (
 };
 
 /***
- * Delete New Theme
- * @METHOD `DELETE`
- * @PATH `/api/v1/theme`
+ * get Theme Item By Id
+ * @METHOD `GET`
+ * @PATH `/api/v1/theme/:id`
  */
-export const deleteTheme = async (
+export const getThemeById = async (
   req: NextApiRequest,
-  res: NextApiResponse<{ _id: string } | CatchType>
+  res: NextApiResponse<ITheme | CatchType>
 ) => {
   const errors: Result<ValidationError> = await validationResult(req);
   if (!errors.isEmpty()) {
@@ -113,11 +129,95 @@ export const deleteTheme = async (
     return res.status(422).json({ msg: firstError });
   } else {
     try {
-      const theme = (await Themes.findOneAndRemove({
-        _id: req.body.id,
-      })) as { id: string };
+      await Themes.findById(req.query.id).exec((err: Object, theme: ITheme) => {
+        if (err || !theme) {
+          return res.status(404).json({
+            msg: "Can not found theme",
+          });
+        }
+        return res.status(200).json(theme);
+      });
+    } catch (error) {
+      return res.status(500).json({
+        msg: error.message,
+        error,
+      });
+    }
+  }
+};
 
-      return res.json({ _id: theme.id });
+/***
+ * 포폴 업데이트
+ * @METHOD `PATCH`
+ * @PATH `/api/v1/theme/count/:id`
+ */
+export const patchThemeCountById = async (
+  req: NextApiRequest,
+  res: NextApiResponse<ITheme | CatchType>
+) => {
+  const errors: Result<ValidationError> = await validationResult(req);
+  if (!errors.isEmpty()) {
+    const firstError: string = await errors.array().map((err) => err.msg)[0];
+    return res.status(422).json({ msg: firstError });
+  } else {
+    const {
+      query: { id },
+      body: { target },
+    } = req;
+
+    try {
+      if (!id) {
+        return res.status(400).json({ msg: "Check 'id' field again" });
+      }
+      if (!["view", "favor", "fork"].includes(target)) {
+        return res.status(400).json({ msg: "Check 'target' field again" });
+      }
+      await Themes.findOneAndUpdate(
+        { _id: id },
+        { $inc: { [`count.${target}`]: 1 } },
+        {
+          new: true,
+          runValidators: true,
+        }
+      ).exec((err: Object, theme: ITheme) => {
+        if (err || !theme) {
+          return res.status(404).json({ msg: "Can not update Theme" });
+        }
+
+        return res.status(200).json(theme);
+      });
+    } catch (error) {
+      return res.status(500).json({
+        msg: error.message,
+        error,
+      });
+    }
+  }
+};
+
+/***
+ * Delete New Theme
+ * @METHOD `DELETE`
+ * @PATH `/api/v1/theme/`
+ */
+export const deleteThemeById = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ id: string } | CatchType>
+) => {
+  const errors: Result<ValidationError> = await validationResult(req);
+  if (!errors.isEmpty()) {
+    const firstError: string = await errors.array().map((err) => err.msg)[0];
+    return res.status(422).json({ msg: firstError });
+  } else {
+    try {
+      await Themes.findOneAndDelete({
+        _id: req.body.id,
+      }).exec((err: Object, theme: ITheme) => {
+        if (err || !theme) {
+          return res.status(404).json({ msg: "Can not delete Theme" });
+        }
+        return res.status(200).json({ id: theme._id });
+      });
     } catch (error) {
       return res.status(500).json({
         msg: error.message,
