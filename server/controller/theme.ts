@@ -19,11 +19,11 @@ import { CatchType } from "typings";
  */
 
 /***
- * Get Theme List
- * @METHOD `GET`
+ * GET Theme List
+ * @METHOD `POST`
  * @PATH `/api/v1/theme`
  */
-export const getThemeList = async (
+export const postThemeList = async (
   req: NextApiRequest,
   res: NextApiResponse<ITheme[] | CatchType>
 ) => {
@@ -35,20 +35,29 @@ export const getThemeList = async (
   } else {
     try {
       const {
-        last_id,
+        lastId,
         limit = 20,
         page = 1,
-      } = req.query as {
-        last_id: string;
+        tags = [],
+        filter = "",
+      } = req.body as {
+        lastId: string;
         limit: string;
         page: string;
+        tags: string[];
+        filter: string;
       };
 
       // &lt : Matches values that are less than a specified value
-      const filter =
-        Number(page) !== 1 ? { _id: { $lt: new mongo.ObjectId(last_id) } } : {};
+      const condition =
+        Number(page) !== 1
+          ? {
+              _id: { $lt: new mongo.ObjectId(lastId) },
+              $or: [{ filter }, { tags: { $in: tags } }],
+            }
+          : {};
 
-      await Themes.find(filter)
+      await Themes.find(condition)
         .limit(Number(limit) || 20)
         .sort({ createdAt: -1 })
         .exec(async (err: Object, theme: ITheme[]) => {
@@ -68,7 +77,7 @@ export const getThemeList = async (
  * @METHOD `POST`
  * @PATH `/api/v1/theme`
  */
-export const postTheme = async (
+export const postThemeCreate = async (
   req: NextApiRequest,
   res: NextApiResponse<ITheme[] | CatchType>
 ) => {
@@ -78,7 +87,7 @@ export const postTheme = async (
     return res.status(422).json({ msg: firstError });
   } else {
     try {
-      const newTheme = (await new Themes(req.body).save()) as ITheme[];
+      const newTheme: ITheme[] = await new Themes(req.body).save();
       return res.status(200).json(newTheme);
     } catch (error) {
       return res.status(500).json({

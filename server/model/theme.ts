@@ -7,19 +7,13 @@ autoIncrement.initialize(mongoose.connection);
 const ThemeSchema: Schema<ITheme> = new Schema(
   {
     seq: { type: Number, required: true },
-    user: { type: String, required: true, maxlength: 128 },
     title: { type: String, required: true, maxlength: 128 },
-    tags: { type: String, required: true },
+    type: { type: String, required: true },
+    tags: { type: Array, required: true },
     count: {
       view: { type: Number, required: true, default: 0 },
       fork: { type: Number, required: true, default: 0 },
       favor: { type: Number, required: true, default: 0 },
-    },
-    social: {
-      github: {
-        id: { type: String, maxlength: 128, default: null },
-        show: { type: Boolean, default: false },
-      },
     },
     colors: { type: Object },
   },

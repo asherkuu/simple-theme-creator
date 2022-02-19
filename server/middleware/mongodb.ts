@@ -15,7 +15,7 @@ const connectDB = (handler) => async (req, res) => {
   }
   // Use new db connection
   await mongoose.connect(
-    `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@cluster0.vwrqp.mongodb.net/${MONGO_DBNAME}?retryWrites=true&w=majority`,
+    `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@cluster0.d8zki.mongodb.net/${MONGO_DBNAME}?retryWrites=true&w=majority`,
     { keepAlive: true, keepAliveInitialDelay: 300000 }
   );
   return handler(req, res);
