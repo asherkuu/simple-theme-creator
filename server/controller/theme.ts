@@ -6,7 +6,7 @@ import ITheme from "../../server/interface/theme";
 import Themes from "../../server/model/theme";
 
 import { CatchType } from "typings";
-import { IThemeRequestBody } from "../typings/theme";
+import { PostThemeListRequestType } from "../typings/theme";
 
 /**
   $eq     =    Matches values that are equal to a specified value.
@@ -42,18 +42,21 @@ export const postThemeList = async (
         type = "all",
         sort = "new",
         popular = null,
-      } = req.body as IThemeRequestBody;
+        searchWord = null,
+      } = req.body as PostThemeListRequestType;
 
       const filteredBy = () => {
         const filter = {
           _id: { $lt: new mongo.ObjectId(lastId) },
           type: type === "all" ? null : type,
           $or: [],
+          title: searchWord ? { $regex: searchWord, $options: "i" } : null,
         };
 
-        tags.length > 0 && (filter.$or = [{ tags: { $in: tags } }]);
+        // add $or filter
+        tags.length > 0 && filter.$or.push({ tags: { $in: tags } });
 
-        // delete not use data
+        // // delete not use data
         Object.keys(filter).forEach((item) => {
           !filter[item] && delete filter[item];
         });
