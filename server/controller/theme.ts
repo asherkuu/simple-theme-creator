@@ -129,14 +129,30 @@ export const getThemeById = async (
     return res.status(422).json({ msg: firstError });
   } else {
     try {
-      await Themes.findById(req.query.id).exec((err: Object, theme: ITheme) => {
-        if (err || !theme) {
-          return res.status(404).json({
-            msg: "Can not found theme",
+      await Themes.findById(req.query.id).exec(
+        async (err: Object, theme: ITheme) => {
+          if (err || !theme) {
+            return res.status(404).json({
+              msg: "Can not found theme",
+            });
+          }
+
+          await Themes.findOneAndUpdate(
+            { _id: req.query.id },
+            { $inc: { ["count.view"]: 1 } },
+            {
+              new: true,
+              runValidators: true,
+            }
+          ).exec((err: Object, theme: ITheme) => {
+            if (err || !theme) {
+              return res.status(404).json({ msg: "Can not update Theme" });
+            }
+
+            return res.status(200).json(theme);
           });
         }
-        return res.status(200).json(theme);
-      });
+      );
     } catch (error) {
       return res.status(500).json({
         msg: error.message,
@@ -147,7 +163,7 @@ export const getThemeById = async (
 };
 
 /***
- * 포폴 업데이트
+ * update Theme Count
  * @METHOD `PATCH`
  * @PATH `/api/v1/theme/count/:id`
  */
