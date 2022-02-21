@@ -3,7 +3,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
+    "dev:server": "node server.ts",
     "sh": "sh script/generate-sitemap.sh",
+    "dev-demon": "cross-env NODE_ENV=production node server.ts",
+    "start-demon": "PORT=3000 NODE_ENV=production pm2 start npm --name 'admin' -- start",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

@@ -48,7 +48,7 @@ const Index: FC<NavBarProps> = ({ themeMode, theme, onToggle }) => {
           <MenuItem>COLOR</MenuItem>
           <ThemeToggle themeMode={themeMode} onToggle={onToggle} />
 
-          <Link href="/new-theme">
+          <Link href="/new-theme" passHref>
             <NewButton>
               <HiOutlinePlus />
             </NewButton>
