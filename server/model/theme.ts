@@ -29,4 +29,5 @@ ThemeSchema.plugin(autoIncrement.plugin, {
   increment: 1, // end
 });
 
-module.exports = mongoose.model<ITheme>("Themes", ThemeSchema);
+export default mongoose.models.Theme ||
+  mongoose.model<ITheme>("Theme", ThemeSchema);

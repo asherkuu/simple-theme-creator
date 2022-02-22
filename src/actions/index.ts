@@ -31,18 +31,21 @@ export function useApiHandler(apiCall) {
   });
 
   const handler = async (...data) => {
-    console.log(3);
     return new Promise(async (resolve, reject) => {
       setReqState({ error: null, data: null, loading: true });
       try {
         const json = await apiCall(...data);
         setReqState({
-          error: null,
+          error: json ? json.data : "error !",
           data: json ? json.data : null,
           loading: false,
         });
 
-        resolve(json ? json.data : "error !");
+        resolve({
+          error: json ? json.data : "error !",
+          data: json ? json.data : null,
+          loading: false,
+        });
       } catch (e) {
         const message =
           (e.response && e.response.data) || "Ooops, something went wrong...";

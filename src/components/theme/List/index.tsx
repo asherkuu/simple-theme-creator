@@ -2,32 +2,30 @@ import { useState, Fragment, useEffect, useCallback } from "react";
 import { useRecoilState } from "recoil";
 import Item from "components/theme/Item";
 import { Wrap } from "./styled";
-import {
-  postThemeInitLoader,
-  useGetThemeList,
-  usePostThemeInitLoader,
-} from "actions/theme";
+import { usePostThemeList } from "actions/theme";
 
 import { themeState } from "../../../../states";
 import { ITheme } from "interface/theme";
-import axios from "axios";
 
 const Index = () => {
   const [limit, setLimit] = useState<number>(20);
-  const [page, setPage] = useState<number>(1);
 
-  const { data, loading } = useGetThemeList(null, limit, page);
+  const [postThemeList, { error }]: any = usePostThemeList();
 
-  // console.log(sa);
-  // const [theme, setTheme] = useRecoilState<ITheme[]>(themeState);
+  const [{ data, loading }, setTheme] =
+    useRecoilState<{ data: ITheme[]; loading: boolean }>(themeState);
 
-  // useEffect(() => {
-  //   setTheme(data);
-  // }, [data]);
+  useEffect(() => {
+    getThemeList();
+  }, []);
+
+  const getThemeList = async () => {
+    return setTheme({ ...(await postThemeList({ lastId: null, limit })) });
+  };
 
   return (
     <Wrap>
-      {/* <div className="grid">
+      <div className="grid">
         {loading ? (
           <span>Loaidng...</span>
         ) : (
@@ -41,11 +39,11 @@ const Index = () => {
                 ))}
               </>
             ) : (
-              <span>No Data</span>
+              <span>No theme</span>
             )}
           </>
         )}
-      </div> */}
+      </div>
     </Wrap>
   );
 };
