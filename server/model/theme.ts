@@ -23,11 +23,10 @@ const ThemeSchema: Schema<ITheme> = new Schema(
 );
 
 ThemeSchema.plugin(autoIncrement.plugin, {
-  model: "Theme",
+  model: "Themes",
   field: "seq",
   startAt: 1, // start
   increment: 1, // end
 });
 
-export default mongoose.models.Theme ||
-  mongoose.model<ITheme>("Theme", ThemeSchema);
+module.exports = mongoose.model<ITheme>("Themes", ThemeSchema);
