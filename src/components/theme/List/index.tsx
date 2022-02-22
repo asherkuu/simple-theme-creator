@@ -1,38 +1,28 @@
 import { useState, Fragment, useEffect, useCallback } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import Item from "components/theme/Item";
 import { Wrap } from "./styled";
-import { usePostThemeList } from "actions/theme";
 
-import { themeState } from "../../../../states";
+import { getThemeSelector, themeState } from "../../../states/theme";
 import { ITheme } from "interface/theme";
 
 const Index = () => {
   const [limit, setLimit] = useState<number>(20);
 
-  const [postThemeList, { error }]: any = usePostThemeList();
-
-  const [{ data, loading }, setTheme] =
-    useRecoilState<{ data: ITheme[]; loading: boolean }>(themeState);
-
-  useEffect(() => {
-    getThemeList();
-  }, []);
-
-  const getThemeList = async () => {
-    return setTheme({ ...(await postThemeList({ lastId: null, limit })) });
-  };
+  const { contents: themeList, state } = useRecoilValueLoadable<ITheme[]>(
+    getThemeSelector({ limit: 1, lastId: "6211deae2ad674b8d3cb228d" })
+  );
 
   return (
     <Wrap>
       <div className="grid">
-        {loading ? (
+        {state !== "hasValue" ? (
           <span>Loaidng...</span>
         ) : (
           <>
-            {data && data.length > 0 ? (
+            {themeList && themeList.length > 0 ? (
               <>
-                {data.map((item) => (
+                {themeList.map((item) => (
                   <Fragment key={item._id}>
                     <Item item={item} sec={100} />
                   </Fragment>
