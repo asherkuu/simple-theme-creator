@@ -28,7 +28,7 @@ const GlobalStyle = (theme: Theme) => css`
     font-size: 16px;
     width: 100%;
     min-height: 100vh;
-    font-family: -apple-system, FiraCode, sans-serif;
+    font-family: FiraCode;
     background-color: var(--color_bg_main);
     color: var(--color_font_main);
 

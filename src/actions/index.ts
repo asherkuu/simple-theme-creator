@@ -31,6 +31,7 @@ export function useApiHandler(apiCall) {
   });
 
   const handler = async (...data) => {
+    console.log(3);
     return new Promise(async (resolve, reject) => {
       setReqState({ error: null, data: null, loading: true });
       try {
