@@ -7,7 +7,6 @@ import Inquerys from "../../model/community/inquery";
 
 import { CatchType } from "typings";
 import { GetInqueryListRequestType } from "../../typings/community/inquery";
-import inquery from "../../model/community/inquery";
 
 /***
  * GET Inqeury List
@@ -187,16 +186,24 @@ export const patchInqueryById = async (
           await Inquerys.findOneAndUpdate({ _id: id }, body, {
             new: true,
             runValidators: true,
-          }).exec((err: Object, inquery: IInquery) => {
-            if (err || !inquery) {
-              return res.status(404).json({ msg: "Can not update inquery" });
-            }
+          })
+            .select([
+              "_id",
+              "seq",
+              "answer",
+              "isAnswer",
+              "content",
+              "user",
+              "createdAt",
+              "updatedAt",
+            ])
+            .exec((err: Object, inquery: IInquery) => {
+              if (err || !inquery) {
+                return res.status(404).json({ msg: "Can not update inquery" });
+              }
 
-            inquery.hash_password = "Not Authorized";
-            inquery.salt = "Not Authorized";
-
-            return res.status(200).json(inquery);
-          });
+              return res.status(200).json(inquery);
+            });
         }
       );
     } catch (error) {
