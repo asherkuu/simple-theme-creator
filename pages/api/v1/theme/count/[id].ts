@@ -10,7 +10,7 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<ITheme | CatchType>
 ) => {
-  return await patchThemeCountById(req, res);
+  if (req.method === "PATCH") return await patchThemeCountById(req, res);
 };
 
 export default connectDB(handler);

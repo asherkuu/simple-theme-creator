@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { Global, ThemeProvider } from "@emotion/react";
 
 import Layout from "components/common/Layout";
-import Font from "components/common/font";
 
 import useTheme from "hooks/useTheme";
 import GlobalStyle from "styles/GlobalStyle";
@@ -15,7 +14,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <ThemeProvider theme={THEME[theme]}>
-        {/* <Font /> */}
         <Global styles={GlobalStyle(THEME[theme])} />
         <Layout themeMode={theme} theme={THEME[theme]} onToggle={onToggle}>
           <Component {...pageProps} />

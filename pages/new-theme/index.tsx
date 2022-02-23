@@ -1,7 +1,6 @@
 import { Box } from "components/common/Core";
 import ColorPicker from "components/theme/new/ColorPicker";
 import VsCode from "components/theme/new/VsCode";
-import React from "react";
 
 const NewTheme = () => {
   return (

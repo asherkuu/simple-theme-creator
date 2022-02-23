@@ -8,9 +8,9 @@ import { postThemeCreate } from "../../../../server/controller/theme";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<ITheme[] | { _id: string } | CatchType>
+  res: NextApiResponse<ITheme[] | CatchType>
 ) => {
-  return await postThemeCreate(req, res);
+  if (req.method === "POST") return await postThemeCreate(req, res);
 };
 
 export default connectDB(handler);
