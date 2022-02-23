@@ -4,7 +4,8 @@ export default interface IInquery extends Document {
   seq: number;
   content: string;
   user: string;
-  password: string;
+  hash_password: string;
+  salt: string;
   answer?: {
     content?: string;
     createdAt?: Date;
