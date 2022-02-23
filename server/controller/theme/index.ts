@@ -2,11 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Result, ValidationError, validationResult } from "express-validator";
 import { mongo } from "mongoose";
 
-import ITheme from "../../server/interface/theme";
-import Themes from "../../server/model/theme";
+import ITheme from "../../interface/theme";
+import Themes from "../../model/theme";
 
 import { CatchType } from "typings";
-import { PostThemeListRequestType } from "../typings/theme";
+import { PostThemeListRequestType } from "../../typings/theme";
 
 /**
   $eq     =    Matches values that are equal to a specified value.
@@ -230,7 +230,7 @@ export const deleteThemeById = async (
   } else {
     try {
       await Themes.findOneAndDelete({
-        _id: req.body.id,
+        _id: req.query.id,
       }).exec((err: Object, theme: ITheme) => {
         if (err || !theme) {
           return res.status(404).json({ msg: "Can not delete Theme" });

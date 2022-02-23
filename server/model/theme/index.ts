@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import ITheme from "../interface/theme";
+import ITheme from "../../interface/theme";
 import autoIncrement from "mongoose-auto-increment";
 
 autoIncrement.initialize(mongoose.connection);
