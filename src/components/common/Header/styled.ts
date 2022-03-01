@@ -13,8 +13,6 @@ export const Logo = styled.p`
   color: #c9d1d9;
 `;
 
-export const Container = styled(Box)``;
-
 export const PageNavigation = styled(Box)`
   > div {
     > p {

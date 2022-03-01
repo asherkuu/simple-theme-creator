@@ -3,13 +3,7 @@ import { useRouter } from "next/router";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
 import { Box } from "../Core";
-import {
-  Container,
-  CreateThemeButton,
-  Logo,
-  PageNavigation,
-  SearchBar,
-} from "./styled";
+import { CreateThemeButton, Logo, PageNavigation, SearchBar } from "./styled";
 
 const Index = () => {
   return (
@@ -25,7 +19,7 @@ const Index = () => {
           <a>VS-Theme Creator</a>
         </Link>
       </Logo>
-      <Container dp="flex" fd="row" g="10px" fx="1">
+      <Box dp="flex" fd="row" g="10px" fx="1">
         {/* page navigation */}
         <PageNavigation dp="flex" fd="column" g="7px" fx="1">
           <Box dp="flex" fd="row" g="8px">
@@ -44,7 +38,7 @@ const Index = () => {
           <p>Theme</p>
         </PageNavigation>
         <DefaultHeader />
-      </Container>
+      </Box>
     </Box>
   );
 };

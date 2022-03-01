@@ -1,13 +1,15 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { Box } from "../Core";
-import { Category } from "./styled";
+import { Category, Filter } from "./styled";
 import StarSvg from "/assets/ic-star.svg";
 import RocketSvg from "/assets/ic-rocket.svg";
 import HeartSvg from "/assets/ic-heart.svg";
 import dynamic from "next/dynamic";
-
-const ColorPicker = dynamic(import("components/theme/new/ColorPicker"));
+import { BsPlusLg } from "react-icons/bs";
+import { GrRefresh } from "react-icons/gr";
+import { MdOutlineWbSunny } from "react-icons/md";
+import { IoMoonOutline } from "react-icons/io5";
 
 const Index = () => {
   return (
@@ -20,9 +22,9 @@ const Index = () => {
       bdc="rgba(13, 17, 23, 0.95)"
     >
       {/* main */}
-      {/* <DefaultNavBar /> */}
+      <DefaultNavBar />
       {/* new-theme */}
-      <ColorPicker />
+      {/* <ColorPicker /> */}
     </Box>
   );
 };
@@ -33,12 +35,27 @@ const DefaultNavBar = () => {
   const [category, setCategory] = useState<"new" | "popular" | "favorite">(
     "new"
   );
+  const [mode, setMode] = useState<{ light: boolean; dark: boolean }>({
+    light: false,
+    dark: false,
+  });
+  const [isFilter, setIsFilter] = useState<boolean>(false);
 
   const handleCategory = (type: "new" | "popular" | "favorite") => {
     setCategory(type);
   };
+
+  const handleAddFilter = () => {
+    setIsFilter((prev) => !prev);
+  };
+
+  const handleMode = (type: "light" | "dark") => {
+    setMode({ ...mode, [type]: !mode[type] });
+  };
+
   return (
     <>
+      {/* category */}
       <Category dp="flex" fd="column" g="10px" w="100%">
         <Box
           p="16px"
@@ -86,6 +103,78 @@ const DefaultNavBar = () => {
           <p>Favorite</p>
         </Box>
       </Category>
+
+      {/* filter */}
+      <Filter w="100%">
+        {/* Add filter */}
+        <Box dp="flex" fd="row" p="16px" ai="center" g="10px" w="100%">
+          <p>Filter</p>
+          <Box
+            dp="flex"
+            ai="center"
+            jc="center"
+            w="32px"
+            h="32px"
+            className={isFilter && "action"}
+            onClick={handleAddFilter}
+          >
+            <BsPlusLg />
+          </Box>
+          <Box dp="flex" ai="center" jc="center" w="32px" h="32px">
+            <GrRefresh />
+          </Box>
+        </Box>
+
+        {/* Mode (dark / light) */}
+        <Box dp="flex" fd="row" p="16px" g="10px">
+          <Box
+            dp="flex"
+            ai="center"
+            jc="center"
+            w="32px"
+            h="32px"
+            className={mode.light && "action"}
+            onClick={() => handleMode("light")}
+          >
+            <MdOutlineWbSunny />
+          </Box>
+          <Box
+            dp="flex"
+            ai="center"
+            jc="center"
+            w="32px"
+            h="32px"
+            className={mode.dark && "action"}
+            onClick={() => handleMode("dark")}
+          >
+            <IoMoonOutline />
+          </Box>
+        </Box>
+
+        {/* Select filter color */}
+        <Box dp="flex" fd="row" fw="wrap" p="16px" g="8px">
+          <Box dp="flex" fd="row" p="3px" ai="center" g="3px">
+            <div></div>
+            <p>Pink</p>
+          </Box>
+          <Box dp="flex" fd="row" p="3px" ai="center" g="3px">
+            <div></div>
+            <p>Pink</p>
+          </Box>
+          <Box dp="flex" fd="row" p="3px" ai="center" g="3px">
+            <div></div>
+            <p>Pink</p>
+          </Box>
+          <Box dp="flex" fd="row" p="3px" ai="center" g="3px">
+            <div></div>
+            <p>Pink</p>
+          </Box>
+          <Box dp="flex" fd="row" p="3px" ai="center" g="3px">
+            <div></div>
+            <p>Pink</p>
+          </Box>
+        </Box>
+      </Filter>
     </>
   );
 };
