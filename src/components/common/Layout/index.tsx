@@ -2,9 +2,11 @@ import React, { FC } from "react";
 import { ReactNode } from "typings";
 import Head from "next/head";
 
-import NavBar from "components/common/NavBar";
 import { Box } from "components/common/Core/Box";
 import { Theme } from "styles/Theme";
+import Header from "components/common/Header";
+import NavBar from "../NavBar";
+import { Container } from "./styled";
 
 interface LayoutPrpos {
   children: ReactNode;
@@ -13,7 +15,7 @@ interface LayoutPrpos {
   onToggle: () => void;
 }
 
-const Layout: FC<LayoutPrpos> = ({ children, ...themeProps }) => {
+const Layout: FC<LayoutPrpos> = ({ children }) => {
   return (
     <>
       <Head>
@@ -28,10 +30,23 @@ const Layout: FC<LayoutPrpos> = ({ children, ...themeProps }) => {
         {/* <meta property="og:image" content="/card.png" /> */}
         <title>Theme Creator</title>
       </Head>
-      <NavBar {...themeProps} />
-      <Box dp="flex" fx="1">
-        {children}
-      </Box>
+      <Container
+        dp="flex"
+        p="20px"
+        fd="column"
+        m="0 auto"
+        mxw="1600px"
+        w="100%"
+        g="20px"
+      >
+        <Header />
+        <Box dp="flex" fd="row" fx="1" g="20px">
+          <NavBar />
+          <Box dp="flex" fx="1" w="100%">
+            {children}
+          </Box>
+        </Box>
+      </Container>
     </>
   );
 };

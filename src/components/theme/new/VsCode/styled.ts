@@ -14,10 +14,6 @@ export const VsCodeHeader = styled(Box)`
   color: rgb(204, 204, 204);
   > div {
     width: 35px;
-    > img {
-      width: 16px;
-      height: 16px;
-    }
   }
   > p {
     padding: 0 8px;
@@ -143,8 +139,6 @@ export const VsCodeBody = styled(Box)`
             > svg,
             > img {
               margin: 0 4px;
-              width: 16px;
-              height: 16px;
             }
 
             > p {
@@ -203,8 +197,6 @@ export const VsCodeBody = styled(Box)`
 
               > img {
                 margin-right: 4px;
-                width: 16px;
-                height: 16px;
               }
               > p {
                 flex: 1;
@@ -239,8 +231,6 @@ export const VsCodeBody = styled(Box)`
             }
             > img {
               margin-right: 4px;
-              width: 16px;
-              height: 16px;
             }
           }
         }

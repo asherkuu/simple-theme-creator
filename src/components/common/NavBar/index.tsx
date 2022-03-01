@@ -1,73 +1,91 @@
-import { FC } from "react";
 import Link from "next/link";
-
-import { AiOutlineSearch } from "react-icons/ai";
+import React, { useState } from "react";
 import { Box } from "../Core";
-import { PageNavigation, SearchBar } from "./styled";
+import { Category } from "./styled";
+import StarSvg from "/assets/ic-star.svg";
+import RocketSvg from "/assets/ic-rocket.svg";
+import HeartSvg from "/assets/ic-heart.svg";
+import dynamic from "next/dynamic";
 
-import { convertHexToRGBA } from "lib/helper";
-import { Theme } from "styles/Theme";
+const ColorPicker = dynamic(import("components/theme/new/ColorPicker"));
 
-interface NavBarProps {
-  themeMode: "dark" | "light";
-  theme: Theme;
-  onToggle: () => void;
-}
-
-const Index: FC<NavBarProps> = ({ themeMode, theme, onToggle }) => {
+const Index = () => {
   return (
     <Box
-      w="100%"
-      ps="fixed"
-      t="0"
-      l="0"
-      zi="99"
-      style={{ backdropFilter: "blur(10px)" }}
+      w="270px"
+      dp="flex"
+      fd="column"
+      ai="center"
+      h="100%"
+      bdc="rgba(13, 17, 23, 0.95)"
     >
-      <Box
-        dp="flex"
-        ai="center"
-        jc="space-between"
-        p="20px 20px"
-        zi="99"
-        g="10px"
-        bg={convertHexToRGBA(theme.color_bg_main, 0.75)}
-      >
-        {/* logo */}
-        {/* <Link href="/">
-          <a>
-            <span>VS-theme Creator</span>
-          </a>
-        </Link> */}
-        {/* page navigation */}
-        <PageNavigation dp="flex" fd="column" g="7px" fx="1">
-          <Box dp="flex" fd="row" g="8px">
-            <p>
-              <Link href="/">
-                <a>Pages</a>
-              </Link>
-            </p>
-            <p>/</p>
-            <p>
-              <Link href="/">
-                <a>Theme</a>
-              </Link>
-            </p>
-          </Box>
-          <p>Theme</p>
-        </PageNavigation>
-        {/* search bar */}
-        <SearchBar dp="flex" ai="center" jc="space-between" w="300px">
-          <AiOutlineSearch />
-          <input type="text" placeholder="Search Themes" />
-        </SearchBar>
-        {/* create theme button */}
-        <Box dp="flex" ai="center" jc="space-between" w="150px">
-          <button type="button">Create Theme</button>
-        </Box>
-      </Box>
+      {/* main */}
+      {/* <DefaultNavBar /> */}
+      {/* new-theme */}
+      <ColorPicker />
     </Box>
   );
 };
 
 export default Index;
+
+const DefaultNavBar = () => {
+  const [category, setCategory] = useState<"new" | "popular" | "favorite">(
+    "new"
+  );
+
+  const handleCategory = (type: "new" | "popular" | "favorite") => {
+    setCategory(type);
+  };
+  return (
+    <>
+      <Category dp="flex" fd="column" g="10px" w="100%">
+        <Box
+          p="16px"
+          ai="center"
+          dp="flex"
+          fd="row"
+          g="11px"
+          w="100%"
+          className={category === "new" && "action"}
+          onClick={() => handleCategory("new")}
+        >
+          <Box dp="flex" ai="center" jc="center" w="32px" h="32px">
+            <StarSvg />
+          </Box>
+          <p>New</p>
+        </Box>
+        <Box
+          p="16px"
+          ai="center"
+          dp="flex"
+          fd="row"
+          g="11px"
+          w="100%"
+          className={category === "popular" && "action"}
+          onClick={() => handleCategory("popular")}
+        >
+          <Box dp="flex" ai="center" jc="center" w="32px" h="32px">
+            <RocketSvg />
+          </Box>
+          <p>Popular</p>
+        </Box>
+        <Box
+          p="16px"
+          ai="center"
+          dp="flex"
+          fd="row"
+          g="11px"
+          w="100%"
+          className={category === "favorite" && "action"}
+          onClick={() => handleCategory("favorite")}
+        >
+          <Box dp="flex" ai="center" jc="center" w="32px" h="32px">
+            <HeartSvg />
+          </Box>
+          <p>Favorite</p>
+        </Box>
+      </Category>
+    </>
+  );
+};

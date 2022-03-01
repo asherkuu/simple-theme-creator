@@ -14,10 +14,17 @@ export interface BoxProps
   className?: string;
   center?: boolean;
   style?: any;
+  onClick?: () => void;
 }
 
 export const Box = forwardRef<BoxProps, "div">((props, ref) => {
-  const { className = "", children, style, ...rest } = props as BoxProps;
+  const {
+    className = "",
+    children,
+    style,
+    onClick,
+    ...rest
+  } = props as BoxProps;
 
   const initStyle = useCallback((rest) => {
     const styled = {};
@@ -40,6 +47,7 @@ export const Box = forwardRef<BoxProps, "div">((props, ref) => {
       className={cx(className)}
       style={{ ...style }}
       __css={initStyle({ ...rest })}
+      onClick={onClick}
     >
       {children}
     </Wrap>

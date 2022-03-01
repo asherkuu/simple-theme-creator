@@ -43,7 +43,6 @@ const GlobalStyle = (theme: Theme) => css`
   body > #__next {
     display: flex;
     flex: 1;
-    padding: 100px 20px 20px;
   }
 
   a {
