@@ -1,30 +1,48 @@
 import styled from "@emotion/styled";
-import { ButtonHover } from "styles/GlobalStyle";
+import { Box } from "../Core";
 
-export const NewButton = styled.button`
-  ${ButtonHover}
+export const PageNavigation = styled(Box)`
+  > div {
+    > p {
+      font-size: 14px;
+      letter-spacing: -0.39px;
+      line-height: 16px;
+      opacity: 0.5;
+      color: #c9d1d9;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-
-  svg {
-    width: 24px;
-    height: 24px;
+      &:last-of-type {
+        opacity: 1;
+      }
+    }
+  }
+  > p {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 18px;
+    letter-spacing: -0.44px;
+    color: #fff;
   }
 `;
 
-export const MenuItem = styled.span`
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 3px;
-  background-color: var(--color_bg_main);
-  color: var(--color_font_main);
-  transition: background-color 100ms ease-in, color 100ms ease-in;
-
-  :hover {
-    background-color: var(--color_btn_hover);
-    color: var(--color_font_hover);
+export const SearchBar = styled(Box)`
+  position: relative;
+  > svg {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+  > input {
+    padding: 11px 11px 11px 58px;
+    border-radius: 8px;
+    border: solid 1px #e7e7e7;
+    width: 100%;
+    background-color: #0d1117;
+    &::placeholder {
+      font-size: 14px;
+      letter-spacing: -0.39px;
+      color: #c9d1d9;
+    }
   }
 `;

@@ -17,6 +17,7 @@ import {
   VscWarning,
   VscGitCompare,
   VscSplitHorizontal,
+  VscSmiley,
 } from "react-icons/vsc";
 
 const VsCode = () => {
@@ -24,7 +25,7 @@ const VsCode = () => {
     const code = [];
     for (var i = 1; i < 100; i++) {
       code.push(
-        <text x={i < 10 ? 31 : 24} y={17 + (i - 1) * 19} key={i}>
+        <text x={i < 10 ? 31 : 24} y={18 + (i - 1) * 18} key={i}>
           <tspan>{i}</tspan>
         </text>
       );
@@ -34,9 +35,9 @@ const VsCode = () => {
 
   return (
     <Box dp="flex" fx="1">
-      <VsCodeBox dp="flex" fd="column" fx="1" fw="wrap">
+      <VsCodeBox dp="flex" fd="column" fx="1" fw="no-wrap">
         {/* Vscode header */}
-        <VsCodeHeader dp="flex" fd="row" fw="wrap" ai="center">
+        <VsCodeHeader dp="flex" fd="row" fw="no-wrap" ai="center">
           <Box dp="flex" ai="center" jc="center">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIWSURBVHgBjVM9aFNRFD73JpH+UE2l1SgoyeAPYm10KLoYAl3iJggODlZnhxZBF/U9jbUBlcRBnCSbk4N0KNrBl4A4OLQoLc2Wp3UQxBKKoX0v957jfbe+5iUtbQ58wz3vnu987zvnMugwUk9KF/gemhk4OfLOWXfy01f2f/PyrJPi81OzY4zx16zh8NjwRZ1DIguBj/PdikcmZ+8isqKUxAUSCAQNJJYGorImSL5aim9XnMx+MIWknJAIPiRBEFF++sWiiS5Wh/KLU8HiIeN9DiUZG1038dFX4IOdKixUgUArIAZVgTgaXvnxgHF+PUhIwO4sPco8HX27SsF8GKmRJopYROSRJBjKBckj3SAcRR/y7tics7FKNlP2Dl7XYPDKxFmbOY20kmdrmRDqFn2HQER6QbpuSQiZqmQvlf0CZUMLwl5yvWZ7rgLsO6wyXRs3ewaBegb7QyhbJiWoTcHBe9MJF7klkMXFn2UQa6ubpkmkYRe4FZucyzQVUAs4raElBMXVuJR8/gl/LSeUkS8DzsfVwswcyM6bvoIgwihZUU1XfWSFlfzlif+Nbg08/vobEc2AWqP//ueUbDNRr3J0vBitFW7UoC32mvOGGmCTpFGHI8fPbCXYKXofzt0mCc/0wf0LR080CdTof+76FurGueeC8Jrypa49af5/SY38akevUYfxJdkl6E0sfuw7hCI5+2af3o1/V+hARIlaA00AAAAASUVORK5CYII=" />
           </Box>
@@ -51,7 +52,7 @@ const VsCode = () => {
         </VsCodeHeader>
 
         {/* Vscode body */}
-        <VsCodeBody dp="flex" fd="row" fx="1" fw="wrap">
+        <VsCodeBody dp="flex" fd="row" fx="1" fw="no-wrap">
           {/* left body */}
           <Box dp="flex" fd="column" jc="space-between">
             <Box dp="flex" fd="column" ai="center" w="100%">
@@ -240,6 +241,7 @@ const VsCode = () => {
                     <tspan className="color3">200</tspan>
                     <tspan>;</tspan>
                   </text>
+
                   <text x={0} y={18 * 4}>
                     <tspan className="color2">const</tspan>
                     <tspan>&nbsp;</tspan>
@@ -598,21 +600,53 @@ const VsCode = () => {
         </VsCodeBody>
 
         {/* Vscode footer */}
-        <VsCodeFooter ai="center" dp="flex" fd="row" fw="wrap">
-          <Box dp="flex" ai="center" jc="center" w="34px" h="100%">
-            <VscRemote />
+        <VsCodeFooter
+          ai="center"
+          dp="flex"
+          fd="row"
+          jc="space-between"
+          fw="no-wrap"
+          w="100%"
+        >
+          {/* left box */}
+          <Box dp="flex" fd="row">
+            <Box dp="flex" ai="center" jc="center" w="34px" h="100%">
+              <VscRemote />
+            </Box>
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <VscSourceControl />
+              <p>master*</p>
+            </Box>
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <VscError />
+              <p>0</p>
+            </Box>
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <VscWarning />
+              <p>1</p>
+            </Box>
           </Box>
-          <Box dp="flex" ai="center" jc="center" h="100%">
-            <VscSourceControl />
-            <p>master*</p>
-          </Box>
-          <Box dp="flex" ai="center" jc="center" h="100%">
-            <VscError />
-            <p>0</p>
-          </Box>
-          <Box dp="flex" ai="center" jc="center" h="100%">
-            <VscWarning />
-            <p>1</p>
+
+          {/* right box */}
+          <Box dp="flex" fd="row" ai="center" h="100%">
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <p>Ln 1, Col 1</p>
+            </Box>
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <p>Spaces: 1</p>
+            </Box>
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <p>UTF-8</p>
+            </Box>
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <p>CRLF</p>
+            </Box>
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <p>TypeScript</p>
+            </Box>
+            <Box dp="flex" ai="center" jc="center" h="100%">
+              <VscSmiley />
+            </Box>
           </Box>
         </VsCodeFooter>
       </VsCodeBox>

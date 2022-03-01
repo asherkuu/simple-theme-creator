@@ -1,10 +1,9 @@
 import { FC } from "react";
 import Link from "next/link";
 
-import { HiOutlinePlus } from "react-icons/hi";
+import { AiOutlineSearch } from "react-icons/ai";
 import { Box } from "../Core";
-import ThemeToggle from "components/common/ThemeToggle";
-import { MenuItem, NewButton } from "./styled";
+import { PageNavigation, SearchBar } from "./styled";
 
 import { convertHexToRGBA } from "lib/helper";
 import { Theme } from "styles/Theme";
@@ -31,28 +30,40 @@ const Index: FC<NavBarProps> = ({ themeMode, theme, onToggle }) => {
         jc="space-between"
         p="20px 20px"
         zi="99"
+        g="10px"
         bg={convertHexToRGBA(theme.color_bg_main, 0.75)}
       >
-        <Link href="/">
+        {/* logo */}
+        {/* <Link href="/">
           <a>
             <span>VS-theme Creator</span>
           </a>
-        </Link>
-        {/* <Box dp="flex" ai="center" jc="space-between">
-          <input type="text" />
-        </Box> */}
-        <Box dp="flex" ai="center" fd="row" g="10">
-          <MenuItem>ALL</MenuItem>
-          <MenuItem>DARK</MenuItem>
-          <MenuItem>LIGHT</MenuItem>
-          <MenuItem>COLOR</MenuItem>
-          <ThemeToggle themeMode={themeMode} onToggle={onToggle} />
-
-          <Link href="/new-theme" passHref>
-            <NewButton>
-              <HiOutlinePlus />
-            </NewButton>
-          </Link>
+        </Link> */}
+        {/* page navigation */}
+        <PageNavigation dp="flex" fd="column" g="7px" fx="1">
+          <Box dp="flex" fd="row" g="8px">
+            <p>
+              <Link href="/">
+                <a>Pages</a>
+              </Link>
+            </p>
+            <p>/</p>
+            <p>
+              <Link href="/">
+                <a>Theme</a>
+              </Link>
+            </p>
+          </Box>
+          <p>Theme</p>
+        </PageNavigation>
+        {/* search bar */}
+        <SearchBar dp="flex" ai="center" jc="space-between" w="300px">
+          <AiOutlineSearch />
+          <input type="text" placeholder="Search Themes" />
+        </SearchBar>
+        {/* create theme button */}
+        <Box dp="flex" ai="center" jc="space-between" w="150px">
+          <button type="button">Create Theme</button>
         </Box>
       </Box>
     </Box>

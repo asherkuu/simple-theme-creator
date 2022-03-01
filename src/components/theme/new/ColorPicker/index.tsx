@@ -6,10 +6,10 @@ import "react-color-palette/lib/css/styles.css";
 const Index = () => {
   const [color, setColor] = useColor("hex", "#121212");
   return (
-    <Box dp="flex" ai="center" w="300px" h="100%">
+    <Box dp="flex" ai="center" h="100%">
       <ColorPicker
-        width={300}
-        height={228}
+        width={250}
+        height={200}
         color={color}
         onChange={setColor}
         onChangeComplete={(color): void =>
