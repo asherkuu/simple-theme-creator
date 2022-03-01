@@ -44,19 +44,33 @@ export const VsCodeBody = styled(Box)`
     &:first-of-type {
       width: 50px;
       background: rgb(51, 51, 51);
-      > div {
+      > div > div {
+        &:nth-of-type(3) {
+          position: relative;
+          &::after {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            content: "2";
+            display: flex;
+            justify-content: center;
+            font-size: 10px;
+            border-radius: 100%;
+            line-height: 18px;
+            width: 16px;
+            height: 16px;
+            background: rgb(0, 122, 204);
+            color: #fff;
+          }
+        }
         /* 아이콘 */
-        & {
-          > div {
-            height: 50px;
-            > svg {
-              cursor: pointer;
-              width: 24px;
-              height: 24px;
-              &:hover {
-                color: #fff;
-              }
-            }
+        height: 50px;
+        > svg {
+          cursor: pointer;
+          width: 24px;
+          height: 24px;
+          &:hover {
+            color: #fff;
           }
         }
 
@@ -233,20 +247,39 @@ export const VsCodeBody = styled(Box)`
 
         /* code */
         &:nth-of-type(3) {
+          position: relative;
           flex: 1;
           height: calc(100% - 35px - 22px);
+          &::before {
+            position: absolute;
+            right: 0;
+            top: 0;
+            content: "";
+            border-left: 1px solid #7f7f7f4d;
+            width: 14px;
+            height: 100%;
+            background: #25252500;
+          }
+          &::after {
+            position: absolute;
+            right: 0;
+            top: 0;
+            content: "";
+            width: 14px;
+            height: 40%;
+            background: hsla(0, 0%, 100%, 0.08);
+          }
           svg {
             height: 100%;
             > text {
               > tspan {
                 fill: rgb(133, 133, 133);
                 font-size: 14px;
-                line-height: 19px;
+                white-space: nowrap;
               }
             }
           }
           > div:nth-of-type(2) {
-            overflow-y: scroll;
             tspan {
               fill: #fff;
               /* code color */
@@ -294,31 +327,53 @@ export const VsCodeBody = styled(Box)`
   }
 `;
 export const VsCodeFooter = styled(Box)`
-  width: 100%;
+  word-spacing: 1px;
   height: 22px;
   background: rgb(0, 122, 204);
+  /* left box */
+  > div:first-of-type {
+    height: 100%;
 
-  > div {
-    padding: 0 6px;
-    cursor: pointer;
-    &:first-of-type {
-      background: rgb(22, 130, 93);
+    > div {
+      padding: 0 6px;
+      cursor: pointer;
+      color: #fff;
+
+      &:first-of-type {
+        background: rgb(22, 130, 93);
+        > svg {
+          margin-right: 0;
+        }
+      }
+      &:hover:not(&:first-of-type) {
+        background: #ffffff1f;
+      }
+      > p {
+        line-height: 22px;
+        font-size: 12px;
+      }
       > svg {
-        margin-right: 0;
+        margin-right: 4px;
+        font-size: 14px;
       }
     }
-    &:hover:not(&:first-of-type) {
-      background: #ffffff1f;
-    }
-    > p {
-      line-height: 22px;
-      font-size: 12px;
+  }
+  /* right box */
+  > div:nth-of-type(2) {
+    padding-right: 6px;
+    > div {
+      padding: 0 6px;
+      cursor: pointer;
       color: #fff;
-    }
-    > svg {
-      margin-right: 4px;
-      font-size: 14px;
-      color: #fff;
+
+      &:hover {
+        background: #ffffff1f;
+      }
+      > p {
+        font-size: 12px;
+        line-height: 22px;
+        color: #fff;
+      }
     }
   }
 `;
